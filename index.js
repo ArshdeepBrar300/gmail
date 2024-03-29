@@ -36,8 +36,7 @@ passport.use(new GoogleStrategy({clientID:process.env.CLIENT_ID,clientSecret:pro
         
         let newuser=await userExistCheck(profile)
         // await saveUserID(accessToken)
-        console.log('done');
-        console.log(newuser);
+       
         user=newuser
         return done(null,newuser)
     } catch (error) {
@@ -45,12 +44,12 @@ passport.use(new GoogleStrategy({clientID:process.env.CLIENT_ID,clientSecret:pro
     }
 }))
 passport.serializeUser((user,done)=>{
-    console.log("Serializing user:", user);
+  
     done(null,user);
 })
 
 passport.deserializeUser((user,done)=>{
-    console.log("Deserialized user:", user);
+ 
   
     done(null,user)});
 
@@ -72,7 +71,7 @@ app.get("/logout", (req, res) => {
     req.session.destroy(function() {
         res.clearCookie("connect.sid");
         user=null
-        console.log(user);
+      
         res.status(200).json('logout done')
         
     }); 
@@ -82,8 +81,7 @@ app.get("/logout", (req, res) => {
 });
 app.get("/login/success",async(req,res)=>{
     
-    console.log('success req got');
-    console.log(user);
+  
     if(user){
         res.status(200).json({message:"user Login",user:user})
     }else{

@@ -1,8 +1,8 @@
 import React from 'react'
-
+import spinner from '../assets/spinner.gif'
 const Spinner = () => {
   return (
-    <div><img src='../assets/spinner.gif'/></div>
+    <div><img src={spinner}/></div>
   )
 }
 

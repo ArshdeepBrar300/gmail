@@ -22,6 +22,15 @@ export const API_URLS={
     deleteEmail:{
         endpoint:'delete',
         method:'POST'
+    },
+    loginSuccess:{
+        endpoint:'login/success',
+        method:'GET'
+    },
+    logout:{
+        endpoint:'logout',
+        method:'GET'
     }
+   
 
 }

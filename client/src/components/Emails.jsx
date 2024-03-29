@@ -20,10 +20,11 @@ function Emails() {
     const moveEmailsToBinService = useApi(API_URLS.moveEmailsToBin)
     const deleteEmailService = useApi(API_URLS.deleteEmail)
 
+    
     useEffect(() => {
 
-        getEmailsServices.call({}, type)
-
+         getEmailsServices.call({}, type)
+        
     }, [type, refreshScreen])
 
 
@@ -55,6 +56,7 @@ function Emails() {
 
 
     }
+    // console.log(getEmailsServices.response.emails);
     return (
         <Box style={openDrawer ? { marginLeft: 250, width: 'calc(100% - 250px)' } : { width: '100%' }}>
             <Box style={{ padding: '20px 10px 0 10px', display: 'flex', alignItems: 'center' }}>
@@ -63,10 +65,15 @@ function Emails() {
             </Box>
             <List>
                 {
-                    getEmailsServices?.response?.map(email => (
-                        <EmailComponent email={email} key={email._id} selectedEmails={selectedEmails} setRefreshScreen={setRefreshScreen} setSelectedEmails={setSelectedEmails} />
+                    
+                    getEmailsServices?.response && getEmailsServices.response.map((email) => {
+                       
+                        // if(email!=null)
+                        return <EmailComponent email={email} key={email._id} selectedEmails={selectedEmails} setRefreshScreen={setRefreshScreen} setSelectedEmails={setSelectedEmails} />
+                        //  return null;
+                    }
 
-                    ))
+                    )
                 }
 
             </List>

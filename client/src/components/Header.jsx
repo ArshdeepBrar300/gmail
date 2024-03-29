@@ -1,7 +1,12 @@
 import React from 'react'
-import { Menu as MenuIcon, Search, Tune, HelpOutlineOutlined, SettingsOutlined, AppsOutlined, AccountCircleOutlined } from '@mui/icons-material'
+import { Menu as MenuIcon, Search, Tune, HelpOutlineOutlined, SettingsOutlined, AppsOutlined, AccountCircleOutlined, Logout as lg} from '@mui/icons-material'
 import { AppBar, Toolbar, styled, InputBase, Box } from '@mui/material'
 import { gmailLogo } from '../constants/constant'
+import { API_URLS } from '../services/api.urls'
+import useApi from '../hooks/useApi'
+import { useDispatch } from 'react-redux'
+import { logout } from '../store/authSlice'
+import { redirect, useNavigate } from 'react-router-dom'
 
 const StyledAppBar = styled(AppBar)({
     background: '#F5F5F5',
@@ -26,6 +31,9 @@ const SearchWrapper = styled(Box)({
     }
 })
 
+const Logout=styled(lg)({
+    cursor:'pointer'
+})
 const OptionsWrapper = styled(Box)({
     width: '100%',
     display: 'flex',
@@ -35,7 +43,28 @@ const OptionsWrapper = styled(Box)({
     }
 
 })
+
 function Header({ toggleDrawer }) {
+    const logoutServices = useApi(API_URLS.logout);
+    const dispatch = useDispatch()
+    const navigate=useNavigate()
+    const handleLogout = async() => {
+        // Assuming you have a route for logging out, you can redirect to that route
+        console.log('logout')
+         await logoutServices.call()
+         let response= logoutServices.response;
+         console.log(response);
+       
+          
+            dispatch(logout());
+            console.log('navigating');
+        
+            navigate('/login');
+            
+         
+        // history.push("/logout");
+    };
+
     return (
         <StyledAppBar position='static'>
             <Toolbar>
@@ -50,7 +79,7 @@ function Header({ toggleDrawer }) {
                     <HelpOutlineOutlined color='action' />
                     <SettingsOutlined color='action' />
                     <AppsOutlined color='action' />
-                    <AccountCircleOutlined color='action' />
+                    <Logout color='action' onClick={handleLogout} />
                 </OptionsWrapper>
             </Toolbar>
         </StyledAppBar>

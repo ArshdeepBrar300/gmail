@@ -1,4 +1,5 @@
 import express from 'express'
+import passport from "passport";
 import { saveSentEmails,getEmails,moveEmailsToBin,toggleStarredEmails,deleteEmails } from '../controller/emailController.js';
 
 const routes=express.Router();
@@ -11,5 +12,7 @@ routes.post('/bin',moveEmailsToBin)
 routes.post('/starred',toggleStarredEmails)
 
 routes.post('/delete',deleteEmails)
+
+
 
 export default  routes;

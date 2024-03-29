@@ -4,6 +4,7 @@ import { Box, Button, Dialog, InputBase, TextField, Typography } from '@mui/mate
 import React, { useState } from 'react'
 import useApi from '../hooks/useApi'
 import { API_URLS } from '../services/api.urls'
+import { useSelector } from 'react-redux'
 
 const dialogStyle = {
     height: '90%',
@@ -64,6 +65,7 @@ const MessageBody = styled(Box)({
 })
 function ComposeMail({ openDialog, setOpenDialog }) {
     const [data, setData] = useState({})
+    const userData=useSelector(state => state.auth.userData)
     const saveDraftService = useApi(API_URLS.saveDraftEmails)
     const sentEmailService = useApi(API_URLS.saveSentEmail)
     const config = {
@@ -74,10 +76,12 @@ function ComposeMail({ openDialog, setOpenDialog }) {
 
     }
     const closeComposeMail = (e) => {
+        console.log('user data: ');
+        console.log(userData);
         e.preventDefault();
         const payload = {
             to: data.to,
-            from: '52211201@nitkkr.ac.in',
+            from: userData.email,
             subject: data.subject,
             body: data.body,
             date: new Date(),
@@ -109,7 +113,7 @@ function ComposeMail({ openDialog, setOpenDialog }) {
             window.Email.send({
                 ...config,
                 To: data.to,
-                From: "52211201@nitkkr.ac.in",
+                From: userData.email,
                 Subject: data.subject,
                 Body: data.body
             }).then(
@@ -119,7 +123,7 @@ function ComposeMail({ openDialog, setOpenDialog }) {
 
         const payload = {
             to: data.to,
-            from: '52211201@nitkkr.ac.in',
+            from: userData.email,
             subject: data.subject,
             body: data.body,
             date: new Date(),

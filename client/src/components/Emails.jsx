@@ -7,10 +7,12 @@ import { DeleteOutline } from '@mui/icons-material'
 import EmailComponent from './EmailComponent'
 import NoMails from './NoMails'
 import { EMPTY_TABS } from '../constants/constant'
+import Spinner from './Spinner'
 
 function Emails() {
     const [selectedEmails, setSelectedEmails] = useState([])
     const [refreshScreen, setRefreshScreen] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [isChecked, setChecked] = useState(false);
 
     const { openDrawer } = useOutletContext()
@@ -20,10 +22,16 @@ function Emails() {
     const moveEmailsToBinService = useApi(API_URLS.moveEmailsToBin)
     const deleteEmailService = useApi(API_URLS.deleteEmail)
 
-    
+    const fetchEmails=async()=>{
+        await  getEmailsServices.call({}, type)
+       setLoading(false)
+    }
     useEffect(() => {
+      setLoading(true)
+        fetchEmails()
 
-         getEmailsServices.call({}, type)
+        
+        
         
     }, [type, refreshScreen])
 
@@ -79,6 +87,9 @@ function Emails() {
             </List>
             {
                 getEmailsServices?.response?.length == 0 && <NoMails message={EMPTY_TABS[type]} />
+            }
+            {
+                loading && <Spinner/>
             }
 
 

@@ -62,8 +62,10 @@ function Login() {
 
             //  LoginService.call({ withCredentials: true })
 
-       
+       console.log('Getting User Info')
+       console.log(response);
             if (response != null) {
+                console.log(response.data);
                 let userData = response.data.user
                 
                 dispatch(authLogin({ userData }));

@@ -27,11 +27,13 @@ const TextWrapper = styled(Typography)({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    cursor:'pointer'
 })
 const IconWrapper = styled(Box)({
     padding: 4,
     display: 'flex',
     justifyContent: 'center',
+    cursor:'pointer',
     alignItems: 'center',
     '& > img': {
         width: '40px',
